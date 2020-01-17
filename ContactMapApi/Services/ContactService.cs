@@ -28,7 +28,7 @@ namespace ContactMapApi.Services
                 .ToListAsync(token).ConfigureAwait(false);
         }
 
-        public async Task<Contact> GetById(Guid id, CancellationToken token = default)
+        public async Task<Contact> GetById(int id, CancellationToken token = default)
         {
             return await _contactRepository.GetByIdAsync(id,token).ConfigureAwait(false);
         }

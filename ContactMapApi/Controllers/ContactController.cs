@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ContactMapApi.Models;
@@ -26,9 +24,21 @@ namespace ContactMapApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAll(CancellationToken token)
+        public async Task<IActionResult> Index(CancellationToken token)
         {
-            return Ok((await _contactService.GetAll(token).ConfigureAwait(false)).ToViewModels());
+            try
+            {
+                return Ok((await _contactService.GetAll(token).ConfigureAwait(false)).ToViewModels());
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Can't get contacts", e);
+                return new ContentResult
+                {
+                    Content = "Can't get contacts",
+                    StatusCode = StatusCodes.Status500InternalServerError
+                };
+            }
         }
 
         [HttpPost]
@@ -53,7 +63,7 @@ namespace ContactMapApi.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id, CancellationToken token = default)
+        public async Task<IActionResult> Delete(int id, CancellationToken token = default)
         {
             try
             {
@@ -71,7 +81,7 @@ namespace ContactMapApi.Controllers
 
                 return new ContentResult
                 {
-                    Content = $"Deleted contact with id:${id}",
+                    Content = $"Deleted contact with id: {id}",
                     StatusCode = StatusCodes.Status205ResetContent
                 };
             }

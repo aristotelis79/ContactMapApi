@@ -10,6 +10,7 @@ namespace ContactMapApi.Models.Mapper
         {
             return new Address
             {
+                ContactId = model.ContactId,
                 RoadName = model.RoadName,
                 RoadNumber = model.RoadNumber,
                 ZipCode = model.ZipCode,
@@ -27,6 +28,7 @@ namespace ContactMapApi.Models.Mapper
         {
             return new AddressViewModel
             {
+                ContactId = entity.ContactId,
                 RoadName = entity.RoadName,
                 RoadNumber = entity.RoadNumber,
                 ZipCode = entity.ZipCode,

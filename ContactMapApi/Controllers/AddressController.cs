@@ -28,9 +28,15 @@ namespace ContactMapApi.Controllers
         {
             try
             {
-                await _addressService.InsertAsync(model.ToEntity(), token);
+                var address = await _addressService.InsertAsync(model.ToEntity(), token);
 
-                return Ok(model);
+                if(address != null) return Ok(model);
+
+                return new ContentResult
+                {
+                    Content = "Contact don't exist to add the address",
+                    StatusCode = StatusCodes.Status404NotFound
+                }; 
             }
             catch (Exception e)
             {

@@ -10,6 +10,7 @@ namespace ContactMapApi.Models.Mapper
         {
             return new Contact
             {
+                Id = model.Id,
                 FullName = model.FullName,
                 Email = model.Email,
                 Phone = model.Phone,
@@ -23,6 +24,7 @@ namespace ContactMapApi.Models.Mapper
         {
             return new ContactViewModel
             {
+                Id = entity.Id,
                 FullName = entity.FullName,
                 Email = entity.Email,
                 Phone = entity.Phone,

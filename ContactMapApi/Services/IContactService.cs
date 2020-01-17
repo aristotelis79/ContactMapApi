@@ -8,7 +8,7 @@ namespace ContactMapApi.Services
 {
     public interface IContactService
     {
-        Task<Contact> GetById(Guid id, CancellationToken token = default);
+        Task<Contact> GetById(int id, CancellationToken token = default);
         Task<List<Contact>> GetAll(CancellationToken token = default);
         Task<Contact> InsertAsync(Contact contact, CancellationToken token = default);
         Task<bool> DeleteAsync(Contact contact, CancellationToken token = default);

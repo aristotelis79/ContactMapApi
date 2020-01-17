@@ -10,14 +10,20 @@ namespace ContactMapApi.Services
     public class AddressService : IAddressService
     {
         private readonly IRepository<Address> _addressRepository;
+        private readonly IRepository<Contact> _contactRepository;
 
-        public AddressService(IRepository<Address> addressRepository)
+        public AddressService(IRepository<Address> addressRepository, IRepository<Contact> contactRepository)
         {
             _addressRepository = addressRepository ?? throw new ArgumentNullException(nameof(addressRepository));
+            _contactRepository = contactRepository ?? throw new ArgumentNullException(nameof(contactRepository));
         }
 
         public async Task<Address> InsertAsync(Address address, CancellationToken token = default, bool saveChanges = true)
         {
+            var contact = await _contactRepository.GetByIdAsync(address.ContactId, token).ConfigureAwait(false);
+            
+            if (contact == null) return null;
+
             return (await _addressRepository.InsertAsync(address,token,saveChanges)
                        .ConfigureAwait(false)) > 0
                 ? address

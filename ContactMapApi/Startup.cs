@@ -1,15 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using ContactMapApi.App_Data;
+using ContactMapApi.App_Data.Entities;
+using ContactMapApi.Repository;
+using ContactMapApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 
 namespace ContactMapApi
 {
@@ -25,6 +24,26 @@ namespace ContactMapApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IDbContext, ContactMapDbContext>();
+            services.AddScoped<IRepository<Contact>,EfRepository<Contact>>();
+            services.AddScoped<IRepository<Address>,EfRepository<Address>>();
+            services.AddScoped<IContactService, ContactService>();
+            services.AddScoped<IAddressService, AddressService>();
+
+            services.AddDbContext<ContactMapDbContext>(o =>
+            {
+                o.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
+            },ServiceLifetime.Scoped);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Contact Map API",
+                });
+            });
+
             services.AddControllers();
         }
 
@@ -36,7 +55,15 @@ namespace ContactMapApi
                 app.UseDeveloperExceptionPage();
             }
 
+#if !DEBUG
             app.UseHttpsRedirection();
+#endif
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Contact Map API V1");
+                c.RoutePrefix = string.Empty;
+            });
 
             app.UseRouting();
 
@@ -46,6 +73,14 @@ namespace ContactMapApi
             {
                 endpoints.MapControllers();
             });
+
+            
+            var serviceScopeFactory = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>();
+            using (var serviceScope = serviceScopeFactory.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetService<ContactMapDbContext>();
+                dbContext.Database.EnsureCreated();
+            }
         }
     }
 }
