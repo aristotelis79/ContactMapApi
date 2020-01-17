@@ -1,8 +1,8 @@
-﻿using ContactMapApi.Data.Entities;
+﻿using ContactMapApi.App_Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ContactMapApi.Data.EntityTypeConfigurations
+namespace ContactMapApi.App_Data.EntityTypeConfigurations
 {
     public class AddressConfiguration :IEntityTypeConfiguration<Address>
     {

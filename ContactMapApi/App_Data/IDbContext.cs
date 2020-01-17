@@ -1,9 +1,9 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using ContactMapApi.Data.Entities;
+using ContactMapApi.App_Data.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContactMapApi.Data
+namespace ContactMapApi.App_Data
 {
     public partial interface IDbContext
     {

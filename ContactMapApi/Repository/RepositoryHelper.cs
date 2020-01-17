@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ContactMapApi.Data.Entities;
+using ContactMapApi.App_Data.Entities;
 
 namespace ContactMapApi.Helpers
 {

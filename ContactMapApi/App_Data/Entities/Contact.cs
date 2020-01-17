@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
-using ContactMapApi.Models;
 
-namespace ContactMapApi.Data.Entities
+namespace ContactMapApi.App_Data.Entities
 {
     public class Contact : BaseEntity
     {

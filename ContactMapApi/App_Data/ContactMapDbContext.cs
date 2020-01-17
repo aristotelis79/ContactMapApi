@@ -1,9 +1,8 @@
-﻿using System;
-using ContactMapApi.Data.Entities;
-using ContactMapApi.Data.EntityTypeConfigurations;
+﻿using ContactMapApi.App_Data.Entities;
+using ContactMapApi.App_Data.EntityTypeConfigurations;
 using Microsoft.EntityFrameworkCore;
 
-namespace ContactMapApi.Data
+namespace ContactMapApi.App_Data
 {
     public class ContactMapDbContext: DbContext , IDbContext
     {

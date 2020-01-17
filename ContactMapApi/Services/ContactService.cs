@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ContactMapApi.Data.Entities;
+using ContactMapApi.App_Data.Entities;
 using ContactMapApi.Repository;
 using Microsoft.EntityFrameworkCore;
 
@@ -28,20 +28,25 @@ namespace ContactMapApi.Services
                 .ToListAsync(token).ConfigureAwait(false);
         }
 
-        public async Task<Contact> InsertAsync(Contact contact, bool saveChanges = true, CancellationToken token = default)
+        public async Task<Contact> GetById(Guid id, CancellationToken token = default)
         {
-            var contactInsert = _contactRepository.InsertAsync(contact, saveChanges, token);
+            return await _contactRepository.GetByIdAsync(id,token).ConfigureAwait(false);
+        }
 
-            var addressInsert = _addressService.InsertAsync(contact.Addresses.ToList(), saveChanges, token);
+        public async Task<Contact> InsertAsync(Contact contact, CancellationToken token = default)
+        {
+            var contactInsert = _contactRepository.InsertAsync(contact, token,false);
+
+            var addressInsert = _addressService.InsertAsync(contact.Addresses.ToList(), token,false);
 
             await Task.WhenAll(contactInsert, addressInsert).ConfigureAwait(false);
 
             return await _contactRepository.SaveChangesAsync(token).ConfigureAwait(false) > 0 ? contact : null;
         }
 
-        public async Task<bool> DeleteAsync(Contact contact, bool saveChanges = true, CancellationToken token = default)
+        public async Task<bool> DeleteAsync(Contact contact, CancellationToken token = default)
         {
-            return await _contactRepository.DeleteAsync(contact, saveChanges, token)
+            return await _contactRepository.DeleteAsync(contact, token)
                                             .ConfigureAwait(false) > 0;
         }
     }

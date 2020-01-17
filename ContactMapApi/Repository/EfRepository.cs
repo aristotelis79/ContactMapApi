@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ContactMapApi.Data;
-using ContactMapApi.Data.Entities;
+using ContactMapApi.App_Data;
+using ContactMapApi.App_Data.Entities;
 using ContactMapApi.Helpers;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,7 +46,7 @@ namespace ContactMapApi.Repository
                                     .ConfigureAwait(false);
         }
 
-        public virtual async Task<int> InsertAsync(TEntity entity, bool saveChanges = true, CancellationToken token = default)
+        public virtual async Task<int> InsertAsync(TEntity entity, CancellationToken token = default, bool saveChanges = true )
         {
             entity.CheckForNull();
 
@@ -64,7 +64,7 @@ namespace ContactMapApi.Repository
             }
         }
 
-        public virtual async Task<int> InsertAsync(IList<TEntity> entities, bool saveChanges = true, CancellationToken token = default)
+        public virtual async Task<int> InsertAsync(IList<TEntity> entities, CancellationToken token = default, bool saveChanges = true )
         {
             entities.CheckForNull();
 
@@ -82,7 +82,7 @@ namespace ContactMapApi.Repository
             }
         }
 
-        public virtual async Task<int> DeleteAsync(TEntity entity, bool saveChanges = true, CancellationToken token = default)
+        public virtual async Task<int> DeleteAsync(TEntity entity, CancellationToken token = default, bool saveChanges = true )
         {
             entity.CheckForNull();
          
@@ -100,7 +100,7 @@ namespace ContactMapApi.Repository
             }
         }
         
-        public virtual async Task<int> DeleteAsync(IList<TEntity> entities, bool saveChanges = true, CancellationToken token = default)
+        public virtual async Task<int> DeleteAsync(IList<TEntity> entities, CancellationToken token = default, bool saveChanges = true )
         {
             entities.CheckForNull();
 

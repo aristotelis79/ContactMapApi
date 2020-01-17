@@ -1,4 +1,4 @@
-﻿namespace ContactMapApi.Data.Entities
+﻿namespace ContactMapApi.App_Data.Entities
 {
     public abstract class BaseEntity
     {
