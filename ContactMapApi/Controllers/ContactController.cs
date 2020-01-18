@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging;
 namespace ContactMapApi.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/contacts")]
     public class ContactController : ControllerBase
     {
         private readonly ILogger<ContactController> _logger;
