@@ -15,7 +15,8 @@ namespace ContactMapApi.Models.Mapper
                 RoadNumber = model.RoadNumber,
                 ZipCode = model.ZipCode,
                 Area = model.Area,
-                Country = model.Country
+                Country = model.Country,
+                City = model.City
             };
         }
 
@@ -33,7 +34,8 @@ namespace ContactMapApi.Models.Mapper
                 RoadNumber = entity.RoadNumber,
                 ZipCode = entity.ZipCode,
                 Area = entity.Area,
-                Country = entity.Country
+                Country = entity.Country,
+                City = entity.City
             };
         }
 

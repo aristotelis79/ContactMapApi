@@ -14,6 +14,7 @@ namespace ContactMapApi.App_Data.EntityTypeConfigurations
             builder.Property(p => p.RoadNumber).IsRequired();
             builder.Property(p => p.ZipCode).IsRequired();
             builder.Property(p => p.Country).IsRequired();
+            builder.Property(p => p.City).IsRequired();
 
             builder.HasOne(x => x.Contact)
                 .WithMany(x => x.Addresses)

@@ -13,12 +13,16 @@ namespace ContactMapApi.Models
         
         [Required]
         public string RoadNumber { get; set; }
+
         [Required]
         public string ZipCode { get; set; }
 
-        public string Area { get; set; }
-        
+        [Required]
+        public string City { get; set; }
+
         [Required]
         public string Country { get; set; }
+
+        public string Area { get; set; }
     }
 }
