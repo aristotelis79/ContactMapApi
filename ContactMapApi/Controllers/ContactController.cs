@@ -46,7 +46,7 @@ namespace ContactMapApi.Controllers
         {
             try
             {
-                 await _contactService.InsertAsync(model.ToEntity(), token).ConfigureAwait(false);
+                await _contactService.InsertAsync(model.ToEntity(), token).ConfigureAwait(false);
                 
                 return Ok(model);
             }

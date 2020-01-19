@@ -11,6 +11,7 @@ namespace ContactMapApi.Models
         public string FullName { get; set; }
 
         [Required]
+        [MinLength(7)]
         [MaxLength(14)]
         public string Phone { get; set; }
 
